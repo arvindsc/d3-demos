@@ -95,14 +95,20 @@
 
 .arc2 {
     stroke-weight:0.1;
-    fill: #3660b0;
+    fill: #A2A0A9;
 }
 
 
-.label {
+.label, .sub-label {
     font-family:  Myriad, "Helvetic Neue", Helvetica, Arial;
     text-anchor: middle;
+    fill: #0000FF;
 }
+
+.sub-label{
+  fill: #A2A0A9;
+}
+
 
 .radial-svg {
     display: block;

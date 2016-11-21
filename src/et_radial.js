@@ -53,12 +53,15 @@ function radialProgress(parent) {
                 .attr("transform", "translate(" + _width/2 + "," + _width/2 + ")")
                 .attr("d", _arc);
 
+
             //Another path in case we exceed 100%
             var path2 = svg.select(".arcs").selectAll(".arc2").data(data);
             path2.enter().append("path")
                 .attr("class","arc2")
                 .attr("transform", "translate(" + _width/2 + "," + _width/2 + ")")
-                .attr("d", _arc2);
+                .attr("d", _arc2)
+                .attr('stroke', '#fff') // <-- THIS
+                .attr('stroke-width', '2'); // <-- THIS;
 
             enter.append("g").attr("class", "labels");
             var label = svg.select(".labels").selectAll(".label").data(data);
@@ -71,6 +74,26 @@ function radialProgress(parent) {
                 // .attr("x",(3*_fontSize/2))
                 .text(function (d) { return Math.round((_value-_minValue)/(_maxValue-_minValue)*100) + "%" })
                 .style("font-size",_fontSize+"px");
+
+            var innerLabel = svg.select(".labels").selectAll(".sub-label").data(data);
+            innerLabel.enter().append("text")
+                .attr("class","sub-label")
+                .attr("y",(_width/2+_fontSize/3) + 20 )
+                .attr("x",_width/2)
+                .attr("cursor","pointer")
+                .attr("width",_width)
+                .text(function (d) { return 10 + "%" })
+                .style("font-size",_fontSize - 10 +"px");
+
+            var outerLabel = svg.select(".labels").selectAll(".outer-label").data(data);
+            outerLabel.enter().append("text")
+                .attr("class","outer-label")
+                .attr("y",(_width/2+_fontSize/3) + 75 )
+                .attr("x",_width/2 -15)
+                .attr("cursor","pointer")
+                .attr("width",_width)
+                .text(function (d) { return "12th" })
+                .style("font-size", _fontSize - 5 +"px");
 
             path.exit().transition().duration(500).attr("x",1000).remove();
 
@@ -90,6 +113,7 @@ function radialProgress(parent) {
                     path2.datum(Math.min(360*(ratio-1),360) * Math.PI/180);
                     path2.transition().delay(_duration).duration(_duration)
                         .attrTween("d", arcTween2);
+                  innerLabel.datum(Math.min(360*(ratio-1),360) * Math.PI/180);
                 }
 
                 label.datum(Math.round(ratio*100));
@@ -102,7 +126,7 @@ function radialProgress(parent) {
     function labelTween(a) {
         var i = d3.interpolate(_currentValue, a);
         _currentValue = i(0);
-        
+
 		return function(t) {
             _currentValue = i(t);
             this.textContent = Math.round(i(t)) + "%";
