@@ -88,14 +88,16 @@
 }
 
 .arc {
-    stroke-weight:0.1;
+    stroke:#fff;
+    stroke-width:2;
     fill: #4e8fff;
 }
 
 
 .arc2 {
-    stroke-weight:0.1;
-    fill: #A2A0A9;
+    stroke: #fff;
+    stroke-width:3;
+    fill: #BCBCC8;
 }
 
 

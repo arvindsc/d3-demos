@@ -60,8 +60,6 @@ function radialProgress(parent) {
                 .attr("class","arc2")
                 .attr("transform", "translate(" + _width/2 + "," + _width/2 + ")")
                 .attr("d", _arc2)
-                .attr('stroke', '#fff') // <-- THIS
-                .attr('stroke-width', '2'); // <-- THIS;
 
             enter.append("g").attr("class", "labels");
             var label = svg.select(".labels").selectAll(".label").data(data);
@@ -96,6 +94,7 @@ function radialProgress(parent) {
                 .style("font-size", _fontSize - 5 +"px");
 
             path.exit().transition().duration(500).attr("x",1000).remove();
+            //Create an SVG text element and append a textPath element
 
             layout(svg);
 
@@ -154,7 +153,7 @@ function radialProgress(parent) {
         _width=_diameter - _margin.right - _margin.left - _margin.top - _margin.bottom;
         _height=_width;
         _fontSize=_width*.2;
-        _arc.outerRadius(_width/2);
+        _arc.outerRadius(_width/2 + 1);
         _arc.innerRadius(_width/2 * .85);
         _arc2.outerRadius(_width/2 * .85);
         _arc2.innerRadius(_width/2 * .85 - (_width/2 * .15));
